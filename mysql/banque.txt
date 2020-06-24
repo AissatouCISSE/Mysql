@@ -1,0 +1,197 @@
+id			Banque du peuple
+
+mysql> create database banque
+
+mysql> use banque;
+
+mysql> create table typeCompte(id int(10) auto_increment primary key not null, libelle varchar(55) not null);
+
+mysql> create table compte(id_compte int(10) auto_increment primary key not null, numAgence varchar(255) not null, numCompte varchar(255) unique not null, cleRib varchar(255) not null);
+
+mysql> create table client(id_client int(10) auto_increment primary key not null, nom varchar(255) not null, adress varchar(255) unique not null, email varchar(255) unique, telephone varchar(255) not null);
+
+mysql> create table client_physique(id_client int(10) auto_increment primary key not null, prenom varchar(255) not null, profession varchar(255) not null, salaire varchar(255) not null;
+
+mysql> create table client_moral(id_employeur int(10) auto_increment primary key not null, raison_sociale varchar(255) not null, nomEmployeur varchar(255) not null, rc varchar(255), ninea varchar(255) not null);
+Query OK, 0 rows affected (0.33 sec)
+
+create table charge_Compte(id_chargeCompte int(10) auto_increment primary key not null, nomChargeCompte varchar(255) not null);
+
+mysql> create table etatCompte(id_etatCompte int(10) auto_increment primary key not null, libelle varchar(15) not null);
+
+create table agios(id_Agios int(10) auto_increment primary key not null, libelle varchar(15) not null, montant varchar(55) not null);
+Query OK, 0 rows affected (1.18 sec)
+
+mysql> create table responsable(id_responsable int(10) auto_increment primary key not null, nomComplet varchar(45) not null);
+
+create table releveCompte(id_releveCompte int(10) auto_increment primary key not null, numCompte varchar(25) not null, rib varchar(25) not null, operations varchar(25) not null, montant varchar(25) not null, data varchar(25) not null);
+
+mysql> create table operation(id_operation int(10) auto_increment primary key not null, libelle varchar(45) not null);                           
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create table depot(id_depot int(10) auto_increment primary key not null, numero int(45) not null);
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> create table retrait(id_retrait int(10) auto_increment primary key not null, numeroVirement int(45) not null);
+
+mysql> create table caissiere(id_caissiere int(10) auto_increment primary key not null, nom varchar(45) not null);
+
+ create table agence(id_agence int(10) auto_increment primary key not null, numAgence varchar(45) not null, mysql> create table caissiere(id_caissiere int(10) auto_increment primary key not null, nom varchar(45) not null););
+
+mysql> create table agence(id_agence int(10) auto_increment primary key not null, numAgence varchar(45) not null, nomAgence varchar(55) not null);
+
+mysql> create table employe(id_employe int(10) auto_increment primary key not null, nomEmploye varchar(45) not null, prenomEmploye varchar(55) not null);
+
+mysql> create table administration(id_administration int(10) auto_increment primary key not null, nomAdmin varchar(45) not null, prenomAdmin varchar(45) not null);
+
+mysql> ALTER TABLE compte ADD COLUMN id int(10);
+Query OK, 0 rows affected (0.65 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_compte foreign key(id) References typeCompte(id);
+Query OK, 0 rows affected (0.85 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE compte ADD COLUMN id_etatCompte int(10);Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_etatcompte foreign key(id_etatCompte) References etatCompte(id_etatCompte);
+Query OK, 0 rows affected (1.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE compte ADD COLUMN id_Agios int(10);
+Query OK, 0 rows affected (0.94 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_Agios foreign key(id_Agios) References agios(id_Agios);
+Query OK, 0 rows affected (1.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE compte ADD COLUMN id_chargeCompte int(10);
+Query OK, 0 rows affected (0.71 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_Charge foreign key(id_chargeCompte) References charge_Compte(id_chargeCompte);
+Query OK, 0 rows affected (1.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE compte ADD COLUMN id_client int(10);                   
+Query OK, 0 rows affected (0.95 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_Client foreign key(id_client) References client(id_client);
+Query OK, 0 rows affected (0.99 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE compte ADD COLUMN id_responsable int(10);
+Query OK, 0 rows affected (0.99 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_Responsable foreign key(id_responsable) References responsable(id_responsable);
+Query OK, 0 rows affected (1.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE virement ADD COLUMN id_responsable int(10);
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table virement add constraint fk_Respon foreign key(id_responsable) References responsable(id_responsable);
+Query OK, 0 rows affected (0.80 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE releveCompte ADD COLUMN id_responsable int(10);
+Query OK, 0 rows affected (0.52 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table releveCompte add constraint fk_RespRele foreign key(id_responsable) References responsable(id_responsable);
+Query OK, 0 rows affected (0.79 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE releveCompte ADD COLUMN id_client int(10);              
+Query OK, 0 rows affected (0.57 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table releveCompte add constraint fk_ClientRele foreign key(id_client) References client(id_client);
+Query OK, 0 rows affected (0.90 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE client_physique ADD COLUMN id_employeur int(10);
+Query OK, 0 rows affected (0.58 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table client_physique add constraint fk_Moral foreign key(id_employeur) References client_moral(id_employeur);
+Query OK, 0 rows affected (1.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE operation ADD COLUMN id_caissiere int(10);             
+Query OK, 0 rows affected (0.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table operation add constraint fk_Caissiere foreign key(id_caissiere) References caissiere(id_caissiere);
+Query OK, 0 rows affected (0.78 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE agence ADD COLUMN id_administration int(10);
+Query OK, 0 rows affected (0.52 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table agence add constraint fk_Admin foreign key(id_administration) References administration(id_administration);
+Query OK, 0 rows affected (0.75 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE employe ADD COLUMN id_administration int(10);
+Query OK, 0 rows affected (0.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table employe add constraint fk_Administrateur foreign key(id_administration) References administration(id_administration);
+Query OK, 0 rows affected (0.94 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE operation ADD COLUMN id_depot int(10);                   
+Query OK, 0 rows affected (0.57 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table operation add constraint fk_Depot foreign key(id_depot) References depot(id_depot);
+Query OK, 0 rows affected (0.82 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE operation ADD COLUMN id_retrait int(10);
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table operation add constraint fk_Retrait foreign key(id_retrait) References retrait(id_retrait);
+Query OK, 0 rows affected (1.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE operation ADD COLUMN id_virement int(10);
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table operation add constraint fk_Virement foreign key(id_virement) References virement(id_virement);
+Query OK, 0 rows affected (1.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE client ADD COLUMN id_clientPhysique int(10);
+Query OK, 0 rows affected (0.80 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table client add constraint fk_ClientPh foreign key(id_clientPhysique) References client_physique(id_clientPhysique);
+Query OK, 0 rows affected (0.92 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE client ADD COLUMN id_employeur int(10);                 
+Query OK, 0 rows affected (0.82 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table client add constraint fk_ClientMoral foreign key(id_employeur) References client_moral(id_employeur);
+Query OK, 0 rows affected (1.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE compte ADD COLUMN id_agence int(10);
+Query OK, 0 rows affected (0.80 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table compte add constraint fk_Agence foreign key(id_agence) References agence(id_agence);
+Query OK, 0 rows affected (1.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
